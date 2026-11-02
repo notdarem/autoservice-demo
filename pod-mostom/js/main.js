@@ -75,7 +75,7 @@
   /* ---------------- порядок секций и номера ---------------- */
   var SECTIONS = [
     ['cars', 'Машины'], ['prices', 'Цены'], ['process', 'Техпроцесс'], ['warranty', 'Гарантия'],
-    ['team', 'Мастер'], ['works', 'Разборы'], ['reviews', 'Отзывы'], ['amenities', 'Условия'],
+    ['team', 'Мастер'], ['works', 'Разборы'], ['reviews', 'Отзывы'], ['amenities', 'На месте'],
     ['faq', 'Вопросы'], ['contacts', 'Контакты']
   ];
   function sectionExists(cfg, id) {
@@ -87,7 +87,7 @@
       case 'team': return arr(cfg.team).filter(function (p) { return has(p.name); }).length > 0;
       case 'works': return arr(cfg.works).filter(function (w) { return w.after && has(w.after.src); }).length > 0;
       case 'reviews': return arr(cfg.reviews).filter(function (r) { return has(r.text); }).length > 0 || arr(cfg.ratings).some(function (r) { return has(r.value); });
-      case 'amenities': return arr(cfg.amenities).filter(function (a) { return has(a.text); }).length > 0;
+      case 'amenities': return amenGroups(cfg).length > 0;
       case 'faq': return faqItems(cfg).length > 0;
       case 'contacts': return arr(cfg.locations).filter(function (l) { return has(l.address); }).length > 0;
     }
@@ -340,13 +340,31 @@
     return h + '</div></section>';
   };
 
+  /* amenities: группы { group, items: [{ icon, title, text }] } или старый плоский список { icon, text } */
+  function amenGroups(cfg) {
+    var src = arr(cfg.amenities), out = [], flat = [];
+    src.forEach(function (x) {
+      if (x && Array.isArray(x.items)) {
+        var it = x.items.filter(function (i) { return i && (has(i.title) || has(i.text)); });
+        if (it.length) out.push({ group: x.group || '', items: it });
+      } else if (x && (has(x.title) || has(x.text))) flat.push(x);
+    });
+    if (flat.length) out.push({ group: '', items: flat });
+    return out;
+  }
+
   R.amenities = function (cfg, ctx) {
     if (!ctx.num.amenities) return '';
-    var a = arr(cfg.amenities).filter(function (x) { return has(x.text); });
+    var g = amenGroups(cfg);
     return '<section class="sec amen" id="amenities" aria-labelledby="amenities-h"><div class="wrap">' +
-      head(ctx, 'amenities', 'Пока чиним: где ждать и как платить') +
-      '<ul class="amen__list">' + a.map(function (x) { return '<li>' + ic(x.icon || 'check') + '<span>' + esc(x.text) + '</span></li>'; }).join('') +
-      '</ul></div></section>';
+      head(ctx, 'amenities', has(cfg.amenitiesTitle) ? cfg.amenitiesTitle : 'Что есть в сервисе') +
+      '<div class="amen__groups">' + g.map(function (grp) {
+        return '<div class="amen__grp">' + (has(grp.group) ? '<h3 class="amen__h">' + esc(grp.group) + '</h3>' : '') +
+          '<ul class="amen__list">' + grp.items.map(function (x) {
+            var t = has(x.title) ? x.title : x.text, d = has(x.title) && has(x.text) ? x.text : '';
+            return '<li>' + ic(x.icon || 'check') + '<div><b class="amen__t">' + esc(t) + '</b>' + (d ? '<span class="amen__d">' + esc(d) + '</span>' : '') + '</div></li>';
+          }).join('') + '</ul></div>';
+      }).join('') + '</div></div></section>';
   };
 
   R.faq = function (cfg, ctx) {

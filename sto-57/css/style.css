@@ -338,11 +338,14 @@ p { max-width: 68ch; }
 @media (min-width: 1024px) { .quotes { columns: 3; } }
 
 /* удобства */
-.amen__list { display: grid; column-gap: var(--s-4); }
+.amen__groups { display: grid; gap: var(--s-4) var(--s-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.amen__h { font: 600 var(--fs-s)/1.3 var(--f-body); text-transform: uppercase; letter-spacing: .08em; color: var(--c-muted); margin-bottom: var(--s-1); }
+.amen__list { display: grid; }
 .amen__list li { display: flex; gap: .85rem; align-items: flex-start; padding-block: var(--s-2); border-top: 1px solid var(--c-line); }
-.amen__list .i { width: 1.5rem; height: 1.5rem; color: var(--c-muted); }
-@media (min-width: 768px) { .amen__list { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .amen__list { grid-template-columns: repeat(3, 1fr); } }
+.amen__list li > div { display: grid; gap: .2rem; min-width: 0; }
+.amen__t { font-weight: 600; }
+.amen__d { color: var(--c-muted); font-size: var(--fs-s); line-height: 1.45; }
+.amen__list .i { width: 1.5rem; height: 1.5rem; color: var(--c-muted); flex: none; margin-top: .1rem; }
 
 /* вопросы */
 .faq { background: var(--c-surface); }
@@ -569,13 +572,13 @@ p { max-width: 68ch; }
 [data-style="friendly"] .strip__list li { border-color: color-mix(in srgb, var(--c-text) 10%, transparent); }
 [data-style="friendly"] .strip__list b { font-weight: 800; letter-spacing: -.03em; }
 [data-style="friendly"] .btn { border-radius: 6px; padding-inline: 1.5rem; }
-[data-style="friendly"] .chip, [data-style="friendly"] .notice, [data-style="friendly"] .case__dl, [data-style="friendly"] .work__img, [data-style="friendly"] .map, [data-style="friendly"] .person__ph img { border-radius: calc(var(--radius) * 2); }
-[data-style="friendly"] .amen__list { gap: .75rem; }
-[data-style="friendly"] .amen__list li { border: 0; background: var(--c-surface); border-radius: calc(var(--radius) * 2); padding: var(--s-2); }
+[data-style="friendly"] .chip, [data-style="friendly"] .notice, [data-style="friendly"] .case__dl, [data-style="friendly"] .work__img, [data-style="friendly"] .map, [data-style="friendly"] .person__ph img { border-radius: var(--radius); }
+[data-style="friendly"] .amen__list { gap: .5rem; }
+[data-style="friendly"] .amen__list li { border: 0; background: var(--c-surface); border-radius: var(--radius); padding: var(--s-2); }
 [data-style="friendly"] .steps__n { font-family: var(--f-head); font-weight: 800; font-size: var(--fs-xl); color: var(--c-accent-2); }
 [data-style="friendly"] .steps__line { height: 3px; border-radius: 3px; background: var(--c-surface); }
 [data-style="friendly"] .steps li.is-control .steps__line { background: var(--c-accent-2); }
-[data-style="friendly"] .quote { border: 0; background: var(--c-surface); border-radius: calc(var(--radius) * 2); padding: var(--s-3); }
+[data-style="friendly"] .quote { border: 0; background: var(--c-surface); border-radius: var(--radius); padding: var(--s-3); }
 [data-style="friendly"] .quote--short p, [data-style="friendly"] .person__q p { font-weight: 700; letter-spacing: -.02em; }
 [data-style="friendly"] .warranty__big { font-weight: 800; color: var(--c-accent-2); }
 [data-style="friendly"] .reviews, [data-style="friendly"] .faq { background: var(--c-bg); }
