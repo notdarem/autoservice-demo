@@ -226,7 +226,7 @@
           return '<li class="prow"><span class="prow__pos num">' + (ci + 1) + '.' + (ii + 1) + '</span>' +
             '<span class="prow__name">' + esc(it.name) + (has(it.note) ? '<small>' + esc(it.note) + '</small>' : '') + '</span>' +
             (anyTime ? '<span class="prow__time num">' + (has(it.time) ? esc(it.time) : '') + '</span>' : '') +
-            (anyPrice ? '<span class="prow__price num">' + priceText(it) + '</span>' : '') + '</li>';
+            (anyPrice ? (priceText(it) !== '' ? '<span class="prow__price num">' + priceText(it) + '</span>' : '<span class="prow__price prow__price--ask">по звонку</span>') : '') + '</li>';
         }).join('') + '</ul></details>';
     }).join('');
     h += '</div>';

@@ -599,3 +599,5 @@ p { max-width: 68ch; }
 @media (max-width: 400px) { .hdr__mark { height: 36px; } .hdr__logo:has(.hdr__mark) { font-size: var(--fs-l, 1.05rem); letter-spacing: -.01em; } }
 .hdr__mark { height: 44px; width: auto; flex: none; }
 @media (min-width: 1024px) { .hdr__mark { height: 52px; } }
+
+.prow__price--ask { color: var(--c-muted); font-weight: 400; font-size: var(--fs-s); font-family: var(--f-body); }
