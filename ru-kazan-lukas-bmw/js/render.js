@@ -7,10 +7,13 @@
    Никаких фактов здесь нет: всё берётся из модели, пустое не выводится.
    ===================================================================== */
 
-import { esc, pad, hash, tpl, plural } from './util.js?v=fl093q';
-import { DAYS, fmtTime, nowIn, hoursStatus, hoursSummary, dayText } from './hours.js?v=fl093q';
+import { esc, pad, hash, tpl, plural } from './util.js';
+import { DAYS, fmtTime, nowIn, hoursStatus, hoursSummary, dayText } from './hours.js';
 export { esc, hash, tpl, plural, DAYS, fmtTime, nowIn, hoursStatus, hoursSummary };
 const has = (v) => v != null && v !== '' && !(Array.isArray(v) && !v.length);
+
+/* логотип студии (Re:Vyve) для плашки демо — рисуется цветом текста */
+const STUDIO_LOGO = '<svg class="studio-logo" viewBox="0 0 1453 125" role="img" aria-label="Re:Vyve" focusable="false"><path fill="currentColor" d="M1288,100 1288,117 1452,117 1452,100ZM516,83 516,111 547,111 548,110 548,84 547,83ZM1288,50 1288,66 1450,66 1451,67 1452,66 1452,50ZM267,50 268,51 268,115 267,116 443,116 443,99 285,99 284,98 284,67 285,66 443,66 443,49 268,49ZM516,15 516,41 547,41 548,40 548,15ZM1288,1 1288,18 1451,18 1452,17 1452,1ZM1052,1 1053,4 1105,67 1108,72 1113,77 1120,87 1132,101 1134,105 1149,123 1152,121 1174,93 1180,87 1189,75 1226,32 1229,27 1251,2 1251,1 1229,1 1171,71 1155,92 1149,97 1144,92 1114,53 1105,43 1073,1ZM883,122 906,122 924,102 929,98 966,58 1002,22 1021,1 998,1 936,65 928,59 872,2 870,1 846,1 923,77 923,79ZM607,0 610,5 624,20 670,75 709,124 710,124 749,76 813,1 789,1 777,17 763,33 760,38 749,50 712,96 709,98 664,44 630,0ZM267,0 268,1 268,15 267,16 443,16 443,0ZM0,0 0,119 18,119 18,113 19,112 19,107 18,106 18,68 19,67 19,63 18,62 18,49 19,48 18,22 20,16 160,16 168,19 173,24 175,28 175,37 167,46 162,48 54,48 62,54 70,58 107,82 115,86 152,110 168,119 198,119 173,104 168,100 155,93 134,79 126,75 113,66 114,65 159,65 160,64 166,64 172,62 184,55 192,45 195,36 195,29 190,16 188,13 180,6 172,2 165,1 164,0Z"/></svg>';
 
 /* ---------- иконки: один спрайт, одна толщина линии ---------- */
 const ICONS = {
@@ -251,7 +254,7 @@ ${msgs.length || m.email ? `<div class="reach__msg"><h3 class="vh">${esc(t('mess
     }).join('')}</div>` : '';
     const logo = model.logo ? `<img class="hdr__logo-img" src="${esc(model.logo.src)}" width="${model.logo.w}" height="${model.logo.h}" alt="">` : '';
     return `<header class="hdr" data-hdr>
-${model.meta.demo ? `<div class="hdr__demo"><p class="wrap">${esc(t('demo_banner', { name: raw(model.biz.name) }))}</p></div>` : ''}
+${model.meta.demo ? `<div class="hdr__demo"><p class="wrap"><span class="hdr__demo-t">${esc(t('demo_banner', { name: raw(model.biz.name) }))}</span><span class="hdr__demo-by">${esc(t('demo_by'))}${STUDIO_LOGO}</span></p></div>` : ''}
 <div class="hdr__bar wrap">
 <a class="hdr__logo" href="#top">${logo}<span>${tx(model.biz.name)}</span></a>
 ${navItems ? `<nav class="hdr__nav" aria-label="${esc(t('nav_label'))}"><ul>${navItems}</ul></nav>` : ''}

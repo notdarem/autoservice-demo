@@ -1557,6 +1557,7 @@ export default {
    "m_instagram": "Instagram",
    "lang_switch": "Язык сайта",
    "demo_banner": "Демо-версия сайта для «{name}»",
+   "demo_by": "Сделано в",
    "demo_note": "Это демо: сайт собран из открытых данных карточек бизнеса.",
    "hero_label": "Коротко о главном",
    "photo_label": "Фото",
